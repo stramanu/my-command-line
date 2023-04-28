@@ -1,6 +1,14 @@
 # >_ mcl - My Command Line
 A personal generic customizable command line
 
+---
+
+This started as a small personal project (written and used only on macos) but given the great utility I thought I'd make it public.
+Maybe with the help of the community it can progress and be more and more useful to more developers.
+Thank you ❤️
+
+---
+
 ### Install
 - Clone anywhere then simply run `npm run i`
 
