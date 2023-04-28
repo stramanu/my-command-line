@@ -9,6 +9,10 @@ Thank you ❤️
 
 ---
 
+![demo](demo.gif)
+
+---
+
 ### Install
 - Clone anywhere then simply run `npm run i`
 
