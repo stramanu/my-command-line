@@ -1,0 +1,19 @@
+{
+    "vars": {
+        "__local__": "~/development/__local__"
+    },
+    "scripts":{
+        "dup": ["sh $__dirname/../libs/docker-compose-up.sh ?$1", "?[dev|stag|prod] # Docker compose up"],
+        "ddw": ["docker-compose down", " # Docker compose down"],
+        "drs": ["sh $__dirname/../libs/docker-compose-down-up.sh ?$1", "?[dev|stag|prod] # Docker compose restart"],
+        "scss-watch": ["npx node-sass$__params -w --output=$2 $1", " <input.sass> <output_dir> # Run Scss compiler"],
+        "scss": ["npx node-sass$__params --output=$2 $1", " <input.sass> <output_dir> # Run Scss compiler"],
+        "less": ["npx lessc$__params $1 $2", " [options] <input.less> <output.css> # Run Less compiler"],
+        "less-watch": ["npx less-watch-compiler $1 $2 $3 $__params", " <source_dir> <output_dir> <main-file.less> [options] # Run Less compiler"],
+        "css-prefix": ["npx postcss --use autoprefixer --autoprefixer.overrideBrowserslist \"> 0%\"$__params -o $2 $1", " <input.css> <output.css> # Run css autoprefixer"],
+        "count": ["find $1 -type f | wc -l", " # Count number of files"],
+        "certgen": ["openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -keyout $2/$1.key -out $2/$1.crt && sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain $2/$1.crt", " <domain> <output_dir> # Generate a self-signed cert (OSX)"],
+        "ppk-to-ssh": ["sh $__dirname/../libs/add_ppk_to_ssh_keys.sh $1 $2", "<input_file_ppk> <output_name> # Convert PPK to SSH cert"],
+        "ssh-no-pwd": ["ssh-copy-id -i ~/.ssh/id_rsa.pub $1 -p$2", "<user_name@remote_server> <port> # SSH copy ID"]
+    }
+}

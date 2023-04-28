@@ -1,0 +1,41 @@
+{
+  "name": "my-command-line",
+  "version": "1.0.0",
+  "description": ">_ mcl - My Command Line - A personal generic customizable Command Line",
+  "main": "index.js",
+  "bin": {
+    "mcl": "./index.js"
+  },
+  "scripts": {
+    "i": "npm link && clear && echo \">_ mcl \"Management CLI installed!!\"\n Now you can run \\033[0;36mmcl\\033[0m in your shell\n\"",
+    "u": "npm unlink && rm /usr/local/bin/mcl && echo \">_ mcl \"Management CLI uninstalled!!\"\n\""
+  },
+  "author": "Emanuele Strazzullo <emanuelestrazzullo.es@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^14.0.5",
+    "autoprefixer": "^9.8.0",
+    "bcrypt": "^3.0.7",
+    "chalk": "^2.3.0",
+    "clear": "0.0.1",
+    "clipboardy": "^2.1.0",
+    "clui": "^0.3.6",
+    "configstore": "^3.1.1",
+    "cryptr": "^6.0.1",
+    "deepmerge": "^3.2.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^5.0.1",
+    "less": "^3.10.3",
+    "lodash": "^4.17.4",
+    "merge-yaml": "^1.0.0",
+    "minimist": "^1.2.0",
+    "node-pv": "^0.1.5",
+    "node-sass": "^4.13.0",
+    "postcss-cli": "^7.1.1",
+    "shelljs": "^0.8.3",
+    "simple-git": "^1.89.0",
+    "sudo-prompt": "^9.1.1",
+    "touch": "^3.1.0",
+    "yaml": "^1.6.0"
+  }
+}
