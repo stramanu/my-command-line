@@ -9,7 +9,7 @@ Thank you ❤️
 
 ---
 
-![demo](demo.gif)
+![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo.gif)
 
 ---
 
