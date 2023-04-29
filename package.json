@@ -1,6 +1,6 @@
 {
   "name": "my-command-line",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": ">_ mcl - My Command Line - A personal generic customizable Command Line",
   "main": "index.js",
   "keywords": ["mcl","my-command-line","osx","linux","command line","custom command line","personal command line","scripts"],

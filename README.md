@@ -9,7 +9,23 @@ Thank you ❤️
 
 ---
 
+I'm Emanuele Strazzullo
+If you have found anything useful and you want to support me, then Buy me a Coffee :coffee:
+[buymeacoffee](https://www.buymeacoffee.com/) is a website that contacts developers, designers, artists, etc. with their communities so that people can express appreciation  for their work.
+If you want to contribute feel free to do it at [__Buy me a coffee! :coffee:__](https://www.buymeacoffee.com/emastraz), and many thanks in advance ❤️.
+For as we well know 
+
+`var code = developer + caffeine`
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/emastraz)
+
+---
+
+Examples:
+
 ![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo.gif)
+![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo1.gif)
+![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo2.gif)
 
 ---
 
