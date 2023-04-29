@@ -24,8 +24,8 @@ For as we well know
 Examples:
 
 ![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo.gif)
-![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo1.gif)
 ![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo2.gif)
+![demo](https://raw.githubusercontent.com/stramanu/my-command-line/master/demo3.gif)
 
 ---
 
