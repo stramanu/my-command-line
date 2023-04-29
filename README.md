@@ -10,9 +10,13 @@ Thank you ❤️
 ---
 
 I'm Emanuele Strazzullo
-If you have found anything useful and you want to support me, then Buy me a Coffee :coffee:
-[buymeacoffee](https://www.buymeacoffee.com/) is a website that contacts developers, designers, artists, etc. with their communities so that people can express appreciation  for their work.
-If you want to contribute feel free to do it at [__Buy me a coffee! :coffee:__](https://www.buymeacoffee.com/emastraz), and many thanks in advance ❤️.
+
+If you have found anything useful and you want to support me, then [Buy me a coffee! :coffee:](https://www.buymeacoffee.com/emastraz)
+
+[buymeacoffee.com](https://www.buymeacoffee.com/emastraz) is a website that contacts developers, designers, artists, etc. with their communities so that people can express appreciation  for their work.
+
+If you want to contribute feel free to do it at [Buy me a coffee! :coffee:](https://www.buymeacoffee.com/emastraz), and many thanks in advance ❤️
+
 For as we well know 
 
 `var code = developer + caffeine`
