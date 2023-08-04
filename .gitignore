@@ -76,3 +76,5 @@ typings/
 /.keychain
 /.keychain.key
 /.keychain.keyhash
+
+/node_ver/*

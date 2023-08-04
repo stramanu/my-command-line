@@ -2,7 +2,7 @@ const shell = require('shelljs');
 const _sudo = require('sudo-prompt');
 const bcrypt = require('bcrypt');
 const child_process = require('child_process');
-const globalConf = require('../global-mcl.json');
+const globalConf = require('./global-mcl.json');
 const chalk = require('chalk');
 const fs = require('fs');
 const cryptr = require('cryptr');
@@ -130,7 +130,7 @@ try {
 } catch (error) { }
 
 const _edit_cli_conf = async (editor) => {
-    let sshTerm = child_process.spawn(editor || 'nano', [`${__dirname}/../global-mcl.json`], {
+    let sshTerm = child_process.spawn(editor || 'nano', [`${__dirname}/./global-mcl.json`], {
         stdio: 'inherit'
     });
     sshTerm.on('exit', function (code, signal) {
@@ -143,7 +143,7 @@ const _edit_cli_conf = async (editor) => {
 }
 
 const _init_local = async () => {
-    shell.exec(`cp ${__dirname}/../local-mcl.default.json ${workingDirPath()}/mcl.json`);
+    shell.exec(`cp ${__dirname}/./local-mcl.default.json ${workingDirPath()}/mcl.json`);
 }
 
 const _read_inline_mcl_params = (str) => {
@@ -490,8 +490,17 @@ const _vbx_usb = async (args) => {
 
 const _key = async (args) => {
 
+    const _key_initialized = () => {
+        if (fs.existsSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' }) && fs.existsSync(`${__dirname}/../../.keychain.key`, { encoding: 'utf8' }) && fs.existsSync(`${__dirname}/../../.keychain.keyhash`, { encoding: 'utf8' })) {
+            return true;
+        }else{
+            console.log(chalk.yellow.bold(`Keychain not initialized...`));
+            return false;
+        }
+    }
+    
     const _key_init = async () => {
-        shell.exec(`touch {${__dirname}/../.keychain,${__dirname}/../.keychain.key,${__dirname}/../.keychain.keyhash}`);
+        shell.exec(`touch {${__dirname}/../../.keychain,${__dirname}/../../.keychain.key,${__dirname}/../../.keychain.keyhash}`);
         await _key_reset(true);
     }
 
@@ -515,7 +524,7 @@ const _key = async (args) => {
             const newKeychainCrypt = new cryptr(newKeychainKey);
 
             // Read keychain key / Write keychain.key
-            const keychainKey = (await shell.sudo(`key=$(<'${__dirname}/../.keychain.key') && echo '${newKeychainKey}' > ${__dirname}/../.keychain.key && chmod 000 ${__dirname}/../.keychain.key && echo $key`, { 
+            const keychainKey = (await shell.sudo(`key=$(<'${__dirname}/../../.keychain.key') && echo '${newKeychainKey}' > ${__dirname}/../../.keychain.key && chmod 000 ${__dirname}/../../.keychain.key && echo $key`, { 
                 name: `mcl Keychain ${(init? 'Init':'Reset')}` 
             })).trim();
 
@@ -528,7 +537,7 @@ const _key = async (args) => {
                 let keychainFile = '{}';
                 
                 try {
-                    keychainFile = fs.readFileSync(`${__dirname}/../.keychain`, { encoding: 'utf8' }) || keychainFile
+                    keychainFile = fs.readFileSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' }) || keychainFile
                 } catch (error) {}
                 keychain = JSON.parse(keychainFile);
     
@@ -542,9 +551,9 @@ const _key = async (args) => {
             }
 
             // Write keychain
-            fs.writeFileSync(`${__dirname}/../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
+            fs.writeFileSync(`${__dirname}/../../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
 
-            fs.writeFileSync(`${__dirname}/../.keychain.keyhash`, await bcrypt.hash(newKeychainKey, 10), { encoding: 'utf8' });
+            fs.writeFileSync(`${__dirname}/../../.keychain.keyhash`, await bcrypt.hash(newKeychainKey, 10), { encoding: 'utf8' });
 
             console.log(chalk.green.bold(`Keychain password has been ${(init? 'initialized':'resetted')}`));
 
@@ -555,12 +564,12 @@ const _key = async (args) => {
             console.log(chalk.red.bold(`Keychain password ${(init? 'init':'reset')} error... Reverting...`));
 
             // Write initial keychain
-            fs.writeFileSync(`${__dirname}/../.keychain`, keychainFile, { encoding: 'utf8' });
+            fs.writeFileSync(`${__dirname}/../../.keychain`, keychainFile, { encoding: 'utf8' });
 
             // Write initial keychain.key
-            await shell.sudo(`echo '${keychainKey}' > ${__dirname}/../.keychain.key`, { name: `mcl Keychain ${(init? 'Init':'Reset')}` });
+            await shell.sudo(`echo '${keychainKey}' > ${__dirname}/../../.keychain.key`, { name: `mcl Keychain ${(init? 'Init':'Reset')}` });
 
-            fs.writeFileSync(`${__dirname}/../.keychain.keyhash`, await bcrypt.hash(keychainFile, 10), { encoding: 'utf8' });
+            fs.writeFileSync(`${__dirname}/../../.keychain.keyhash`, await bcrypt.hash(keychainFile, 10), { encoding: 'utf8' });
             
             console.log(chalk.red.bold(`Done`));
         }
@@ -570,7 +579,7 @@ const _key = async (args) => {
         let keyName = args[0];
 
         // Read keychain file
-        let keychainFile = fs.readFileSync(`${__dirname}/../.keychain`, { encoding: 'utf8' })
+        let keychainFile = fs.readFileSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' })
         let keychain = JSON.parse(keychainFile);
         
         // Prompt 
@@ -601,7 +610,7 @@ const _key = async (args) => {
         // Prompt keychain key
         const keychainKey = await inquirer.ask("Keychain Password", "Please enter a valid password", true)   
 
-        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../.keychain.keyhash`, { encoding: 'utf8' })))) {
+        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../../.keychain.keyhash`, { encoding: 'utf8' })))) {
             console.log(`Wrong password...`);
             return;
         }
@@ -616,7 +625,7 @@ const _key = async (args) => {
         }
 
         // Write keychain
-        fs.writeFileSync(`${__dirname}/../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
+        fs.writeFileSync(`${__dirname}/../../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
 
         console.log(chalk.green.bold(`"${keyName}" added!`));
     }
@@ -625,7 +634,7 @@ const _key = async (args) => {
         let keyName = args[0];
 
         // Read keychain file
-        let keychainFile = fs.readFileSync(`${__dirname}/../.keychain`, { encoding: 'utf8' })
+        let keychainFile = fs.readFileSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' })
         let keychain = JSON.parse(keychainFile);
         
         // Prompt 
@@ -645,20 +654,20 @@ const _key = async (args) => {
         // Prompt keychain key
         const keychainKey = await inquirer.ask("Keychain Password", "Please enter a valid password", true)   
 
-        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../.keychain.keyhash`, { encoding: 'utf8' })))) {
+        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../../.keychain.keyhash`, { encoding: 'utf8' })))) {
             console.log(`Wrong password...`);
             return;
         }
 
         // Write keychain
-        fs.writeFileSync(`${__dirname}/../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
+        fs.writeFileSync(`${__dirname}/../../.keychain`, JSON.stringify(keychain, null, 2), { encoding: 'utf8' });
 
         console.log(chalk.green.bold(`"${keyName}" removed!`));
     }
 
     const _key_list = async () => {
         // Read keychain file
-        const keychainFile = fs.readFileSync(`${__dirname}/../.keychain`, { encoding: 'utf8' })
+        const keychainFile = fs.readFileSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' })
         const keychain = JSON.parse(keychainFile);
 
         console.log(chalk.green.bold(`Keychain list:`));
@@ -675,7 +684,7 @@ const _key = async (args) => {
         const keyName = args[0]
 
         // Read keychain file
-        const keychainFile = fs.readFileSync(`${__dirname}/../.keychain`, { encoding: 'utf8' })
+        const keychainFile = fs.readFileSync(`${__dirname}/../../.keychain`, { encoding: 'utf8' })
         const keychain = JSON.parse(keychainFile);
 
         if (!keychain[keyName]) {
@@ -702,7 +711,7 @@ const _key = async (args) => {
         // Read keychain key
         const keychainKey = await inquirer.ask("Keychain Password", "Please enter a valid password", true)   
         
-        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../.keychain.keyhash`, { encoding: 'utf8' })))) {
+        if (!(await bcrypt.compare(keychainKey, fs.readFileSync(`${__dirname}/../../.keychain.keyhash`, { encoding: 'utf8' })))) {
             console.log(chalk.yellow.bold(`Wrong password...`));
             return;
         }
@@ -711,6 +720,10 @@ const _key = async (args) => {
 
         console.log(chalk.green.bold(`"${keyName}" password has been copied to the clipboard!`));
         clipboardy.writeSync(keychainCrypt.decrypt(keychain[keyName]));
+    }
+
+    if (!_key_initialized()) {
+        await _key_init();
     }
 
     switch (args[0]) {
